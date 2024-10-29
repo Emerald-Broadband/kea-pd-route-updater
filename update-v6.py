@@ -45,18 +45,19 @@ def lease6_renew():
     lease6_address = os.environ.get('LEASE6_ADDRESS')
     lease6_prefix_len = os.environ.get('LEASE6_PREFIX_LEN')
     logging.info('RENEW - ' + lease6_address + '/' + lease6_prefix_len + ' by ' + query6_remote_addr)
+    logging.debug('RENEW - ' + str(os.environ))
     return 0
 
 def lease6_rebind():
-    logging.info('REBIND - ' + str(os.environ))
+    logging.debug('REBIND - ' + str(os.environ))
     return 0
 
 def lease6_expire():
-    logging.info('EXPIRE - ' + str(os.environ))
+    logging.debug('EXPIRE - ' + str(os.environ))
     return 0
 
 def lease6_recover():
-    logging.info('RECOVER - ' + str(os.environ))
+    logging.debug('RECOVER - ' + str(os.environ))
     return 0
 
 def check_route_exists(address, prefix_len):
