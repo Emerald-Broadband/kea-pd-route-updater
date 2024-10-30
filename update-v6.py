@@ -113,7 +113,7 @@ def leases6_committed():
             if cached_gateway:
                 if cached_gateway != leases6_at0_address:
                     # Gateway has changed, remove the old route
-                    del_cmd = f"sudo ip route del {leases6_at1_address}/{leases6_at1_prefix_len} via {cached_gateway}"
+                    del_cmd = f"sudo ip route del {leases6_at1_address}/{leases6_at1_prefix_len}"
                     logging.info(f"COMMITTED - Removing old route: {del_cmd}")
                     subprocess.run(["ssh", "-o", "StrictHostKeyChecking=no", "-i", SSH_IDENTITY_FILE, f'{SSH_USERNAME}@{query6_remote_addr}', del_cmd])
                 else:
@@ -134,11 +134,11 @@ def leases6_committed():
     return 0
 
 def lease6_release():
-    logging.info('RELEASE - ' + str(os.environ))
+    logging.debug('RELEASE - ' + str(os.environ))
     return 0
 
 def lease6_decline():
-    logging.info('DECLINE - ' + str(os.environ))
+    logging.debug('DECLINE - ' + str(os.environ))
     return 0
 
 if __name__ == "__main__":
