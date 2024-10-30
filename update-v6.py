@@ -8,7 +8,7 @@ import json
 from datetime import datetime
 
 # Define the configuration file path
-CONFIG_FILE = '/tmp/lease_routes_config.json'
+CONFIG_FILE = '/etc/kea/lease_routes_config.json'
 
 # Read configuration from file
 def read_config():
