@@ -115,7 +115,7 @@ def leases6_committed():
                     # Gateway has changed, remove the old route
                     del_cmd = f"sudo ip route del {leases6_at1_address}/{leases6_at1_prefix_len} via {cached_gateway}"
                     logging.info(f"COMMITTED - Removing old route: {del_cmd}")
-                    subprocess.run(["ssh", "-i", SSH_IDENTITY_FILE, f'{SSH_USERNAME}@{query6_remote_addr}', del_cmd])
+                    subprocess.run(["ssh", "-o", "StrictHostKeyChecking=no", "-i", SSH_IDENTITY_FILE, f'{SSH_USERNAME}@{query6_remote_addr}', del_cmd])
                 else:
                     logging.info(f"COMMITTED - Route {leases6_at1_address}/{leases6_at1_prefix_len} already exists with correct gateway. Skipping.")
                     return 0
@@ -123,7 +123,7 @@ def leases6_committed():
             # Add or update the route
             add_cmd = f"sudo ip route add {leases6_at1_address}/{leases6_at1_prefix_len} via {leases6_at0_address}"
             logging.info(f"COMMITTED - Adding/Updating route: {add_cmd}")
-            subprocess.run(["ssh", "-i", SSH_IDENTITY_FILE, f'{SSH_USERNAME}@{query6_remote_addr}', add_cmd])
+            subprocess.run(["ssh", "-o", "StrictHostKeyChecking=no", "-i", SSH_IDENTITY_FILE, f'{SSH_USERNAME}@{query6_remote_addr}', add_cmd])
 
             if update_route(leases6_at1_address, leases6_at1_prefix_len, leases6_at0_address):
                 logging.info("COMMITTED - Route added/updated in JSON file")
