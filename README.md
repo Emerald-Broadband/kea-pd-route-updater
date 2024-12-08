@@ -11,7 +11,7 @@ The hook may be activated on the `kea-dhcp6` with this configuration in `kea-dhc
     {
         "library": "/usr/local/lib/kea/hooks/libdhcp_run_script.so",
         "parameters": {
-            "name": "/root/update-v6.py",
+            "name": "/srv/kea-pd-route-updater/update-v6.py",
             "sync": false
         }
     }
@@ -40,3 +40,8 @@ The SSH parameters need to match what you have configured on your switches. In t
 The `ROUTES_FILE` is used to avoid sending unnecessary commands to the switch. When a route is added by this script, it is logged to that file and will only be re-applied (deleted and added) if it changes.
 
 The `LOG_FILE` records all of the actions received and taken by the script.
+
+## Implementation Notes
+
+I've had consistent trouble with the default `apparmor` settings with the Debian-packaged version of Kea. Or at least that's what I suspect; the hook gets loaded but never seems to execute. Purging that and loading the version provided by ISC via Cloudsmith has solved that problem in all cases.
+
